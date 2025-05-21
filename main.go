@@ -1,14 +1,12 @@
 package main
 
 import (
-	"context"
 	"flag"
-	"log"
-	"os"
+	"fmt"
 
-	"github.com/google/go-containerregistry/pkg/logs"
 	"github.com/hashicorp/terraform-plugin-framework/providerserver"
-	"github.com/scribe-security/terraform-valint/internal/provider"
+	// "github.com/hashicorp/terraform-plugin-framework/providerserver"
+	"github.com/scribe-security/terraform-valint/internal"
 )
 
 //go:generate terraform fmt -recursive ./examples/
@@ -25,15 +23,16 @@ func main() {
 		Address: "registry.terraform.io/scribe-security/valint",
 		Debug:   debug,
 	}
+	fmt.Println("Starting valint provider...", opts, internal.New(version))
 
 	// Wire up ggcr logs.
-	logs.Warn.SetOutput(os.Stderr)
-	if debug {
-		logs.Progress.SetOutput(os.Stderr)
-		logs.Debug.SetOutput(os.Stderr)
-	}
+	// logs.Warn.SetOutput(os.Stderr)
+	// if debug {
+	// 	logs.Progress.SetOutput(os.Stderr)
+	// 	logs.Debug.SetOutput(os.Stderr)
+	// }
 
-	if err := providerserver.Serve(context.Background(), provider.New(version), opts); err != nil {
-		log.Fatal(err.Error())
-	}
+	// if err := providerserver.Serve(context.Background(), provider.New(version), opts); err != nil {
+	// 	log.Fatal(err.Error())
+	// }
 }

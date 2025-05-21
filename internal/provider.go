@@ -1,4 +1,4 @@
-package provider
+package internal
 
 import (
 	"context"
@@ -6,7 +6,7 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework/datasource"
 	"github.com/hashicorp/terraform-plugin-framework/provider"
 	"github.com/hashicorp/terraform-plugin-framework/provider/schema"
-	"go.opencensus.io/resource"
+	"github.com/hashicorp/terraform-plugin-framework/resource"
 )
 
 var _ provider.Provider = &Provider{}
@@ -31,20 +31,11 @@ func (p *Provider) Configure(ctx context.Context, req provider.ConfigureRequest,
 }
 
 func (p *Provider) Resources(ctx context.Context) []func() resource.Resource {
-	return []func() resource.Resource{
-		func() resource.Resource {
-			return &resource.Resource{}
-		},
-	}
+	return []func() resource.Resource{}
 }
 
 func (p *Provider) DataSources(ctx context.Context) []func() datasource.DataSource {
-
-	return []func() datasource.DataSource{
-		func() datasource.DataSource {
-			return &datasource.DataSource{}
-		},
-	}
+	return []func() datasource.DataSource{}
 }
 
 func (p *Provider) Metadata(ctx context.Context, req provider.MetadataRequest, resp *provider.MetadataResponse) {
